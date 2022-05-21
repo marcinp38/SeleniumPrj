@@ -8,9 +8,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import java.time.Duration;
+
 public class TestBase {
     WebDriver driver;
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public final int IMPLICIT_WAIT_TIME_SECONDS = 5;
 
     @BeforeClass
     public void setupDriverManager(){
@@ -22,10 +26,13 @@ public class TestBase {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         driver = new ChromeDriver(options);
+
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT_TIME_SECONDS));
     }
     @AfterMethod
     public void tearDown() throws InterruptedException{
-        Thread.sleep (2000);
+//        Thread.sleep (2000);
         driver.quit();
     }
 
